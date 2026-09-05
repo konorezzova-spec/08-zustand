@@ -38,9 +38,9 @@ export const fetchNotes = async (
 
 // має виконувати запит для створення нової нотатки на сервері. Приймає вміст нової нотатки та повертає створену нотатку у відповіді;
 
-export const createNote = async (
-  note: Pick<Note, "title" | "content" | "tag">
-): Promise<Note> => {
+export type CreateNoteParams = Pick<Note, "title" | "content" | "tag">;
+
+export const createNote = async (note: CreateNoteParams): Promise<Note> => {
   const response = await axiosInstance.post<Note>("/notes", note);
   return response.data;
 };

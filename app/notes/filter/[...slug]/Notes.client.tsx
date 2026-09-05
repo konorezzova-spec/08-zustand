@@ -13,10 +13,10 @@ import Pagination from "@/components/Pagination/Pagination";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+// import Modal from "@/components/Modal/Modal";
+// import NoteForm from "@/components/NoteForm/NoteForm";
 import { fetchNotes } from "@/lib/api";
-// import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface NotesClientProps {
   category: undefined | string;
@@ -26,12 +26,8 @@ export default function NotesClient({ category }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery] = useDebounce(searchQuery, 500);
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
-  // const { slug } = useParams<{
-  //   slug: ("all" | "Todo" | "Work" | "Personal" | "Meeting" | "Shopping")[];
-  // }>();
-
-  // const category = slug[0] === "all" ? undefined : slug[0];
+  const router = useRouter();
+  // const [modalOpen, setModalOpen] = useState(false);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: [
@@ -64,12 +60,12 @@ export default function NotesClient({ category }: NotesClientProps) {
     }
   }, [data]);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  // const openModal = () => {
+  //   setModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  // };
 
   return (
     <>
@@ -84,7 +80,11 @@ export default function NotesClient({ category }: NotesClientProps) {
               onPageChange={setCurrentPage}
             />
           )}
-          <button type="button" className={css.button} onClick={openModal}>
+          <button
+            type="button"
+            className={css.button}
+            onClick={() => router.push("/notes/action/create")}
+          >
             Create note +
           </button>
         </header>
@@ -96,11 +96,11 @@ export default function NotesClient({ category }: NotesClientProps) {
 
         <Toaster />
 
-        {modalOpen && (
+        {/* {modalOpen && (
           <Modal onClose={closeModal}>
             <NoteForm onClose={closeModal} />
           </Modal>
-        )}
+        )} */}
       </div>
     </>
   );
