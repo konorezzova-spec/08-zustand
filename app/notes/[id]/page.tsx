@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { id } = await params;
   const note = await fetchNoteById(id);
   return {
-    metadataBase: "https://08-zustand-coral-two.vercel.app/",
+    metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
     title: `${note.title}`,
     description: `${note.content.slice(0, 30)}`,
     openGraph: {

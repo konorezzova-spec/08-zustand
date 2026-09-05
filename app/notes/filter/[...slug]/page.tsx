@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
-import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
+import { Metadata } from "next";
 
 interface NotesProps {
   params: Promise<{
@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: NotesProps): Promise<Metadata> {
   const { slug } = await params;
   return {
-    metadataBase: "https://08-zustand-coral-two.vercel.app/",
+    metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
     title: `Category: ${slug[0]}`,
     description: `Notes filtered by category: ${slug[0]}`,
     openGraph: {
@@ -59,7 +59,7 @@ export default async function Notes({ params }: NotesProps) {
   return (
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <NotesClient category={category} />
+        <NotesClient tag={category} />
       </HydrationBoundary>
     </>
   );

@@ -1,12 +1,10 @@
-//npm install use-debounce
-//npm install react-hot-toast
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import css from "./NotesPage.module.css";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { Toaster, toast } from "react-hot-toast";
+// import { Toaster, toast } from "react-hot-toast";
 
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
@@ -19,10 +17,10 @@ import { fetchNotes } from "@/lib/api";
 import { useRouter } from "next/navigation";
 
 interface NotesClientProps {
-  category: undefined | string;
+  tag: undefined | string;
 }
 
-export default function NotesClient({ category }: NotesClientProps) {
+export default function NotesClient({ tag }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery] = useDebounce(searchQuery, 500);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,19 +30,18 @@ export default function NotesClient({ category }: NotesClientProps) {
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: [
       "notes",
-      { search: debouncedQuery, page: currentPage, tag: category },
+      { search: debouncedQuery, page: currentPage, tag: tag },
     ],
     queryFn: () =>
       fetchNotes({
         search: debouncedQuery,
         page: currentPage,
         perPage: 12,
-        tag: category,
+        tag: tag,
       }),
     enabled: true,
     retry: 1,
     placeholderData: keepPreviousData,
-    refetchOnMount: false,
   });
 
   const updateSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,11 +51,11 @@ export default function NotesClient({ category }: NotesClientProps) {
 
   const totalPages = data?.totalPages ?? 0;
 
-  useEffect(() => {
-    if (data && data.notes.length === 0) {
-      toast.error("No notes found.");
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data.notes.length === 0) {
+  //     toast.error("No notes found.");
+  //   }
+  // }, [data]);
 
   // const openModal = () => {
   //   setModalOpen(true);
@@ -94,7 +91,9 @@ export default function NotesClient({ category }: NotesClientProps) {
 
         {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
 
-        <Toaster />
+        {data && data.notes.length === 0 && <p>No notes found.</p>}
+
+        {/* <Toaster /> */}
 
         {/* {modalOpen && (
           <Modal onClose={closeModal}>

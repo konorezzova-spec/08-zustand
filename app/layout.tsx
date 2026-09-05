@@ -8,11 +8,11 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 export const metadata: Metadata = {
   title: "NoteHub",
   description: "A professional-grade private notes management system",
-  metadataBase: "https://08-zustand-coral-two.vercel.app/",
+  metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
   openGraph: {
     title: "NoteHub",
     description: "A professional-grade private notes management system",
-    url: "/",
+    url: "https://08-zustand-coral-two.vercel.app",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

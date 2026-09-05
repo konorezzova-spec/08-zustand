@@ -1,14 +1,14 @@
 import CreateNote from "@/components/CreateNote/CreateNote";
 import { Metadata } from "next";
 
-export const metadats: Metadata = {
+export const metadata: Metadata = {
   title: "Create note",
   description: "Create a new note",
-  metadataBase: "https://08-zustand-coral-two.vercel.app/",
+  metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
   openGraph: {
     title: "Create note",
     description: "Create a new note",
-    url: "/",
+    url: "https://08-zustand-coral-two.vercel.app/notes/action/create",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -20,5 +20,6 @@ export const metadats: Metadata = {
   },
 };
 export default function CreateNotePage() {
+  // Wrapper for the NoteForm component
   return <CreateNote />;
 }
