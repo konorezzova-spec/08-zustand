@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create note",
   description: "Create a new note",
-  metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
+  metadataBase: new URL("https://08-zustand-coral-two.vercel.app"),
   openGraph: {
     title: "Create note",
     description: "Create a new note",

@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: NotesProps): Promise<Metadata> {
   const { slug } = await params;
   return {
-    metadataBase: new URL("https://08-zustand-coral-two.vercel.app/"),
+    metadataBase: new URL("https://08-zustand-coral-two.vercel.app"),
     title: `Category: ${slug[0]}`,
     description: `Notes filtered by category: ${slug[0]}`,
     openGraph: {
